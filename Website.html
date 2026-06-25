@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="/_sdk/telemetry_sdk.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senior Healthcare Insights Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
+  <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .heading-font { font-family: 'Playfair Display', serif; color: rgb(30, 58, 95); }
+        .page-section { display: none; }
+        .page-section.active { display: block !important; }
+        .nav-link.active { border-bottom: 3px solid #0d9488; color: #0d9488; }
+        .stat-card { border-left: 4px solid #0d9488; }
+        .case-card, .rec-card { transition: transform 0.2s; }
+        .case-card:hover, .rec-card:hover { transform: translateY(-2px); }
+        .case-content, .rec-content { transition: max-height 0.3s ease-out, opacity 0.2s ease-out; max-height: 1000px; overflow: hidden; }
+        .case-content.collapsed, .rec-content.collapsed { max-height: 0 !important; opacity: 0; padding-top: 0 !important; padding-bottom: 0 !important; }
+        .chevron-icon { transition: transform 0.2s ease; }
+        .chevron-icon.rotated { transform: rotate(-90deg); }
+        
+        .section-header-highlight {
+            background-color: rgba(202, 202, 202, 0.9);
+            border-left: 5px solid rgb(13, 148, 136);
+            padding: 1rem 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            display: block; 
+            width: 100%;
+        }
+
+        details summary::-webkit-details-marker { display: none; }
+        details summary { list-style: none; }
+    </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen" style="background: rgb(248, 250, 252);">
+  
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+   <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row md:items-center md:justify-between py-3 md:h-16">
+    <div class="flex items-center justify-between w-full md:w-auto">
+     <span data-template-id="nav-title" class="canva-text font-bold text-lg cursor-pointer flex items-center gap-2" data-page="overview" style="color: rgb(30, 58, 95); font-weight: 700; font-style: normal; font-size: 16px;">Senior Healthcare Insights</span>
+     <button id="toolbar-toggle" class="md:hidden text-slate-700 focus:outline-none p-1">
+      <i data-lucide="menu" class="w-6 h-6"></i>
+     </button>
+    </div>
+    <div id="toolbar-menu" class="hidden md:flex flex-col md:flex-row gap-2 md:gap-4 text-sm mt-3 md:mt-0 pb-2 md:pb-0">
+     <button class="nav-link active px-2 py-1 font-medium text-left whitespace-nowrap" data-page="overview">Overview</button> 
+     <button class="nav-link px-2 py-1 font-medium text-left whitespace-nowrap" data-page="segments">Segments</button> 
+     <button class="nav-link px-2 py-1 font-medium text-left whitespace-nowrap" data-page="cases">Case Studies</button> 
+     <button class="nav-link px-2 py-1 font-medium text-left whitespace-nowrap" data-page="recommendations">Recommendations</button> 
+     <button class="nav-link px-2 py-1 font-medium text-left whitespace-nowrap" data-page="references">References</button>
+    </div>
+   </div>
+  </nav>
+
+  <main class="pt-24 md:pt-20 pb-12">
+   <section class="page-section active" id="page-overview">
+    <header class="relative overflow-hidden py-16 px-6">
+     <div data-template-id="hero-bg" class="canva-section absolute inset-0" style="background: linear-gradient(135deg, rgb(30, 58, 95), rgb(13, 148, 136));"></div>
+     <div class="relative max-w-5xl mx-auto text-center">
+      <h1 data-template-id="hero-title" class="canva-text heading-font mb-4" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Senior Citizen Healthcare Market in Malaysia</h1>
+      <p data-template-id="hero-subtitle" class="canva-text text-lg max-w-3xl mx-auto mb-4" style="color: rgb(226, 232, 240); font-weight: 400; font-style: normal; font-size: 16px;">A comprehensive consumer behaviour analysis of Malaysia's rapidly growing elderly population and strategic marketing opportunities for healthcare providers.</p>
+      
+      <div data-template-id="hero-author" class="inline-block bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full text-sm text-teal-100 border border-white/20 mt-2 font-medium shadow-sm">
+        Prepared by: <span class="text-white font-bold tracking-wide">Lai Jia Hao, Connie Ng Ke Ni, Gan You Min, Anton Lee Min Syd, Daniel Gomez, Ahmed Zimam Ibrahim Rasheed </span>
+      </div>
+
+      <img data-template-id="hero-image" class="canva-image w-full max-w-2xl mx-auto mt-8 rounded-xl shadow-lg h-64 object-cover" loading="lazy" src="https://images.pexels.com/photos/11030158/pexels-photo-11030158.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="A doctor holding an elderly patient's hands on a desk with medication and stethoscope">
+     </div>
+    </header>
+    <div class="max-w-5xl mx-auto px-6 py-12">
+     <div class="mb-6">
+       <h2 data-template-id="overview-intro-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Senior Citizen Healthcare Market Segment in Malaysia</h2>
+     </div>
+     <p data-template-id="overview-intro-text" class="canva-text leading-relaxed mb-8" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Malaysia is projected to become an aging nation by 2030, with 15% of its population aged 60 and above. This plus the country's robust economic growth in the last decade has created a higher standard of living for all citizens. This has in turn created a strong and growing demand for healthcare even amongst senior citizens. </p>
+     
+<div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
+      <i data-lucide="users" class="w-4 h-4 text-blue-600"></i> 
+      Age Structure (1970 - 2040)
+    </h3>
+    <select id="year-selector" class="text-xs font-bold bg-slate-100 border border-slate-200 rounded px-2 py-1 text-slate-700 focus:outline-none focus:ring-1 focus:ring-teal-500" onchange="updateAgeStructure(this.value)">
+      <option value="1970">1970</option>
+      <option value="1980">1980</option>
+      <option value="1990">1990</option>
+      <option value="2000">2000</option>
+      <option value="2010">2010</option>
+      <option value="2020" selected>2020</option>
+      <option value="2030">2030 (Proj)</option>
+      <option value="2035">2035 (Proj)</option>
+      <option value="2040">2040 (Proj)</option>
+    </select>
+  </div>
+  
+  <div class="space-y-3">
+    <div>
+      <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+        <span>Working Age (15 to 59 Years)</span>
+        <span id="label-working">65.5%</span>
+      </div>
+      <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+        <div id="bar-working" class="bg-green-600 h-full transition-all duration-300" style="width: 65.5%"></div>
+      </div>
+    </div>
+    
+    <div>
+      <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+        <span>Children & Youth (0 to 14 Years)</span>
+        <span id="label-children">23.4%</span>
+      </div>
+      <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+        <div id="bar-children" class="bg-blue-600 h-full transition-all duration-300" style="width: 23.4%"></div>
+      </div>
+    </div>
+    
+    <div>
+      <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+        <span>Seniors & Elderly (60+ Years)</span>
+        <span id="label-seniors">11.1%</span>
+      </div>
+      <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+        <div id="bar-seniors" class="bg-red-500 h-full transition-all duration-300" style="width: 11.1%"></div>
+      </div>
+    </div>
+  </div>
+  <p class="text-xs text-slate-400 mt-4 italic">Source: DOSM Framework. Data mapped from timeline metrics.</p>
+</div>
+
+     <div class="mb-8">
+       <h2 data-template-id="overview-graph-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Demographic Trends &amp; Healthcare Cost Projections</h2>
+       <p class="canva-text text-sm text-slate-600 mt-2 mb-4">The dynamic mapping below highlights the correlation between a aging demographics segment and rising national financial obligations towards clinical demands.</p>
+       
+       <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 overflow-x-auto">
+         <table class="w-full text-sm text-left border-collapse min-w-[600px]">
+           <thead>
+             <tr class="bg-slate-50 text-slate-700 border-b border-slate-200">
+               <th class="p-3 font-semibold">Metric Year</th>
+               <th class="p-3 font-semibold">% of Older Persons (60+)</th>
+               <th class="p-3 font-semibold">Burden Healthcare Cost (% of GDP)</th>
+               <th class="p-3 font-semibold">Total Healthcare Cost</th>
+             </tr>
+           </thead>
+           <tbody class="text-slate-600">
+             <tr class="border-b border-slate-100 hover:bg-slate-50/50">
+               <td class="p-3 font-bold text-slate-800">2014</td>
+               <td class="p-3">8.78%</td>
+               <td class="p-3">0.34%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 3,815.12 Million</td>
+             </tr>
+             <tr class="border-b border-slate-100 hover:bg-slate-50/50">
+               <td class="p-3 font-bold text-slate-800">2020</td>
+               <td class="p-3">11.10%</td>
+               <td class="p-3">0.49%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 6,116.55 Million</td>
+             </tr>
+             <tr class="border-b border-slate-100 hover:bg-slate-50/50 bg-teal-50/20">
+               <td class="p-3 font-bold text-slate-800">2025</td>
+               <td class="p-3">13.18%</td>
+               <td class="p-3">0.62%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 8,720.38 Million</td>
+             </tr>
+             <tr class="border-b border-slate-100 hover:bg-slate-50/50">
+               <td class="p-3 font-bold text-slate-800">2030 (Projected)</td>
+               <td class="p-3">15.29%</td>
+               <td class="p-3">0.76%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 12,033.49 Million</td>
+             </tr>
+             <tr class="border-b border-slate-100 hover:bg-slate-50/50">
+               <td class="p-3 font-bold text-slate-800">2035 (Projected)</td>
+               <td class="p-3">17.44%</td>
+               <td class="p-3">0.91%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 16,198.99 Million</td>
+             </tr>
+             <tr class="hover:bg-slate-50/50">
+               <td class="p-3 font-bold text-slate-800">2040 (Projected)</td>
+               <td class="p-3">19.83%</td>
+               <td class="p-3">1.08%</td>
+               <td class="p-3 text-teal-600 font-semibold">RM 21,578.59 Million</td>
+             </tr>
+           </tbody>
+         </table>
+         <p class="text-xs text-slate-400 mt-3 italic">Source: Article - JHPOR. (n.d.). https://www.jhpor.com/home/Article/2356</p>
+       </div>
+     </div>
+
+     <div class="mb-6">
+       <h2 data-template-id="overview-significance-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Market Relevance</h2>
+     </div>
+     <p data-template-id="overview-significance-text" class="canva-text leading-relaxed mb-8" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Senior citizens represent a rapidly expanding healthcare consumer segment with distinct needs. Rising chronic disease prevalence, increasing life expectancy, and growing middle-class wealth among retirees drive healthcare expenditure. Understanding their consumer behaviour is essential for developing inclusive, accessible, and effective healthcare marketing strategies.</p>
+     
+     <details class="group border border-gray-200 rounded-lg p-4 bg-white shadow-sm mt-8">
+       <summary class="flex justify-between items-center font-bold text-slate-700 cursor-pointer focus:outline-none">
+         <span>References &amp; Citations</span>
+         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 transition-transform group-open:rotate-180"></i>
+       </summary>
+       <div class="mt-4 text-sm text-slate-500 space-y-2 leading-relaxed">
+         <p>Article - JHPOR. (n.d.). https://www.jhpor.com/home/Article/2356</p>
+         <p>Department of Statistics Malaysia. (2024). Current population estimates, Malaysia.</p>
+         <p>Ministry of Health Malaysia. (2023). Health facts 2023. Ministry of Health Malaysia.</p>
+         <p>United Nations Population Fund. (2023). Ageing and older persons in Asia and the Pacific.</p>
+         <p>World Bank. (2024). Malaysia economic monitor: Ageing and healthcare accessibility.</p>
+       </div>
+     </details>
+    </div>
+   </section>
+
+   <section class="page-section" id="page-segments">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+     <div class="mb-8">
+       <h1 data-template-id="seg-title" class="canva-text heading-font text-3xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 32px;">Demographic &amp; Psychographic Characteristics</h1>
+     </div>
+     <img data-template-id="seg-image" class="canva-image w-full h-56 object-cover rounded-xl shadow mb-10" loading="lazy" src="https://images.pexels.com/photos/36008132/pexels-photo-36008132.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Elderly individuals in a meeting room, promoting community and socialization">
+     
+     <div class="mb-6">
+       <h2 data-template-id="seg-demo-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Demographic Profile</h2>
+     </div>
+     <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div data-template-id="seg-demo-card-1" class="canva-card p-5 rounded-lg" style="background: rgb(240, 253, 250);">
+        <h3 class="canva-text font-bold mb-2 text-base" style="color: rgb(30, 58, 95);">🧓 Age Range</h3>
+        <ul class="list-disc pl-5" style="color: rgb(51, 65, 85); font-weight: 400; font-size: 16px; line-height: 1.625;">
+            <li class="mb-2"><strong>Senior Status:</strong> Defined in Malaysia as individuals aged 60 or older.</li>
+            <li class="mb-2"><strong>Demographic Shift:</strong> Rapidly aging population due to rising life expectancy and falling fertility rates.</li>
+            <li class="mb-2"><strong>Population Growth:</strong> The elderly demographic grew significantly from 7.9% in 2010 to 11.1% in 2020.</li>
+        </ul>
+      </div>
+      <div data-template-id="seg-demo-card-3" class="canva-card p-5 rounded-lg" style="background: rgb(240, 253, 250);">
+        <h3 class="canva-text font-bold mb-2 text-base" style="color: rgb(30, 58, 95);">🏥 Health Conditions</h3>
+        <ul class="list-disc pl-5" style="color: rgb(51, 65, 85); font-weight: 400; font-size: 16px; line-height: 1.625;">
+            <li class="mb-1"><strong>Diabetes Prevalence:</strong> 39% of senior citizens live with diabetes.</li>
+            <li class="mb-1"><strong>Hypertension Rates:</strong> 73% of seniors have hypertension.</li>
+            <li class="mb-1"><strong>High Cholesterol:</strong> 76% of seniors have high cholesterol levels.</li>
+            <li class="mb-1"><strong>Co-morbidity Burden:</strong> 68% have at least 2 of these conditions, and 30% suffer from all 3 simultaneously.</li>
+        </ul>
+      </div>
+     </div>
+
+     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 mb-10 max-w-2xl">
+       <h3 class="text-sm font-bold uppercase tracking-wider text-slate-600 mb-4 flex items-center gap-2">
+         <i data-lucide="activity" class="w-4 h-4 text-rose-500"></i> Medical Metric: Prevalence of Chronic Conditions (Age 60+)
+       </h3>
+       <div class="space-y-3">
+         <div>
+           <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+             <span>High Cholesterol Level</span>
+             <span>76%</span>
+           </div>
+           <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+             <div class="bg-teal-500 h-full" style="width: 76%"></div>
+           </div>
+         </div>
+         <div>
+           <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+             <span>Hypertension</span>
+             <span>73%</span>
+           </div>
+           <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+             <div class="bg-amber-500 h-full" style="width: 73%"></div>
+           </div>
+         </div>
+         <div>
+           <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+             <span>Diabetes Profile</span>
+             <span>39%</span>
+           </div>
+           <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+             <div class="bg-rose-500 h-full" style="width: 39%"></div>
+           </div>
+         </div>
+       </div>
+       <p class="text-xs text-slate-400 mt-4 italic">Source: NHMS 2023.</p>
+     </div>
+
+     <div class="mb-6">
+       <h2 data-template-id="seg-psycho-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Psychographic Characteristics</h2>
+     </div>
+     <ul class="list-disc pl-5 mb-8" style="color: rgb(51, 65, 85); font-weight: 400; font-size: 16px; line-height: 1.625;">
+         <li class="mb-2"><strong>Values:</strong> Family-centredness, independence, respect for authority.</li>
+         <li class="mb-2"><strong>Lifestyle:</strong> Community-oriented, prefer face-to-face interactions, value routine and familiarity.</li>
+         <li class="mb-2"><strong>Personality:</strong> Risk-averse in health decisions, trust-driven purchasing, brand loyal once trust established.</li>
+         <li class="mb-2"><strong>Health Beliefs:</strong> Strongly influenced by cultural norms and traditional medicine acceptance alongside modern healthcare.</li>
+     </ul>
+
+     <div class="mb-6">
+       <h2 data-template-id="seg-geo-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Geographic Characteristics</h2>
+     </div>
+     <div class="flex flex-col gap-4 mb-8">
+      <div style="flex: 1; background-color: rgb(240, 246, 255); border-radius: 12px; padding: 24px;">
+        <h3 class="canva-text font-bold mb-4 text-lg" style="color: rgb(30, 58, 95);">🏙️ Urban Seniors</h3>
+        <ul class="list-disc pl-5" style="color: rgb(51, 65, 85); font-weight: 400; font-size: 16px; line-height: 1.625;">
+            <li class="mb-2"><strong>Key Locations:</strong> Concentrated in major cities like Kuala Lumpur, Shah Alam, and George Town.</li>
+            <li class="mb-2"><strong>Resource Access:</strong> Easy access to private hospitals, advanced health technologies, and pharmacies.</li>
+        </ul>
+      </div>
+      <div style="flex: 1; background-color: rgb(254, 249, 217); border-radius: 12px; padding: 24px;">
+        <h3 class="canva-text font-bold mb-4 text-lg" style="color: rgb(30, 58, 95);">🌾 Rural Seniors</h3>
+        <ul class="list-disc pl-5" style="color: rgb(51, 65, 85); font-weight: 400; font-size: 16px; line-height: 1.625;">
+            <li class="mb-2"><strong>Key Challenges 1:</strong> Limited access to health technologies and facilities due to long travel distances.</li>
+            <li class="mb-2"><strong>Key Challenges 2:</strong> Rural citizens generally have less financial resources making utilization of private healthcare services a financial challenge. </li>
+            <li class="mb-2"><strong>System Dependency:</strong> This forces them to seek public healthcare services and hence highly reliant on public healthcare services instead of private alternatives.</li>
+        </ul>
+      </div>
+     </div>
+
+     <details class="group border border-gray-200 rounded-lg p-4 bg-white shadow-sm mt-8">
+       <summary class="flex justify-between items-center font-bold text-slate-700 cursor-pointer focus:outline-none">
+         <span>References &amp; Citations</span>
+         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 transition-transform group-open:rotate-180"></i>
+       </summary>
+       <div class="mt-4 text-sm text-slate-500 space-y-2 leading-relaxed">
+         <p>Abdullah, J. M., Ismail, A., &amp; Yusoff, M. S. B. (2024). Healthy ageing in Malaysia by 2030: Needs, challenges and future directions. The Malaysian Journal of Medical Sciences, 31(4), 1–13. https://doi.org/10.21315/mjms2024.31.4.1</p>
+         <p>Department of Statistics Malaysia. (2026, May 14). Demographic statistics Malaysia, first quarter 2026. https://www.dosm.gov.my/portal-main/release-content/demographic-statistic-malaysia-q12026</p>
+         <p>Institute for Public Health, National Institutes of Health, Ministry of Health Malaysia, Mohd Noh, S. N., Ab Rahim, I., Jawahir, S., Manual, A., Nordin, A. A., Hamid, J. A., Rifin, H. M., Yusoff, M. F. M., &amp; Razali, N. (2024). National Health and Morbidity Survey (NHMS) 2023: Non-communicable Diseases and Healthcare Demand - Key findings. https://iku.nih.gov.my/images/nhms2023/key-findings-nhms-2023.pdf</p>
+         <p>United Nations Economic and Social Commission for Asia and the Pacific. (n.d.). SDD ageing fact sheet overview. https://www.unescap.org/sites/default/files/SDD%20Ageing%20Fact%20Sheet%20Overview.pdf</p>
+         <p>World Health Organization: WHO. (2024, December 16). Transforming Health: Malaysia’s RM 30 billion NCD strategy. https://www.who.int/westernpacific/newsroom/feature-stories/item/transforming-health--malaysia-s-rm-30-billion-ncd-strategy</p>
+       </div>
+     </details>
+    </div>
+   </section>
+
+   <section class="page-section" id="page-cases">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+     <div class="mb-8">
+       <h1 data-template-id="cases-title" class="canva-text heading-font text-3xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 32px;">Successful Case Studies</h1>
+     </div>
+     
+     <div data-template-id="case-1-card" class="canva-card case-card rounded-xl shadow-sm mb-8 overflow-hidden" style="background: rgb(255, 255, 255);">
+      <button class="case-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+       <h2 data-template-id="case-1-title" class="canva-text heading-font text-xl" style="font-weight: 700; font-style: normal; font-size: 24px;">Case Study 1: AIA Vitality</h2>
+       <i data-lucide="chevron-down" class="chevron-icon w-6 h-6 text-teal-600"></i>
+      </button>
+      <div class="case-content p-6 pt-0 border-t border-gray-100">
+       <p data-template-id="case-1-strategy" class="canva-text text-sm mb-2" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Through its AIA Vitality program, AIA Malaysia promotes healthier lifestyles by rewarding members for routinely exercising, going to health checkups, and keeping an eye on their health. AIA Malaysia effectively engaged older folks.</p>
+       <p data-template-id="case-1-theory" class="canva-text text-sm mb-2" style="color: rgb(13, 148, 136); font-weight: 400; font-style: normal; font-size: 16px;">Theory: Expectancy Theory. This program is successful because of the expectancy theory, which states that consumers are driven to engage in a behavior when they feel it will result in favorable outcomes. AIA has strategically use discounts and other incentives (cheaper screening fee of RM600) to encourage seniors to take yearly blood and other tests. These have motivated seniors to seek healthcare on a regular basis which represents a win-win for AIA and those seniors.</p>
+       <p data-template-id="case-1-success" class="canva-text text-sm" style="color: rgb(71, 85, 105); font-weight: 400; font-style: normal; font-size: 16px;">Success: Maintaining excellent health and constantly going for health check-ups helps senior citizens lower their risk of chronic diseases and helps them stay independent. Because they anticipate rewards they value, seniors are more inclined to engage with this program.</p>
+      </div>
+     </div>
+
+     <div data-template-id="case-2-card" class="canva-card case-card rounded-xl shadow-sm mb-8 overflow-hidden" style="background: rgb(255, 255, 255);">
+      <button class="case-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+       <h2 data-template-id="case-2-title" class="canva-text heading-font text-xl" style="font-weight: 700; font-style: normal; font-size: 24px;">Case Study 2: SilverSneakers</h2>
+       <i data-lucide="chevron-down" class="chevron-icon w-6 h-6 text-teal-600"></i>
+      </button>
+      <div class="case-content p-6 pt-0 border-t border-gray-100">
+       <p data-template-id="case-2-strategy" class="canva-text text-sm mb-2" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">SilverSneakers is a community fitness program designed specifically for older adults. It has successfully engaged the senior citizen segment by applying Need and Motivation Theory. The program allows senior citizens to take part in group exercises such as push-pull, slow paced stretches, climb steps, bending down, arm raising and related exercises. This directly addresses the primary physiological and social needs of senior citizens, such as maintaining mobility, reducing chronic disease risks, and preventing social isolation.</p>
+       <p data-template-id="case-2-theory" class="canva-text text-sm mb-2" style="color: rgb(13, 148, 136); font-weight: 400; font-style: normal; font-size: 16px;">Theory: Attitude Theory &amp; Experiential Marketing. The initiative also leverages Attitude Theory by transforming how seniors view aging and physical fitness. Many older adults hold a negative attitude toward traditional, high-intensity gyms, viewing them as intimidating or unsafe. The group exercises can let participants see improvements in their physical abilities and mental state after a short period of time. This will also eliminate their negative perception towards traditional high intensity gyms as intimidating and unsafe, aided by group dynamics. The fun they get "working" in a group is an added benefit.</p>
+       <p data-template-id="case-2-success" class="canva-text text-sm" style="color: rgb(71, 85, 105); font-weight: 400; font-style: normal; font-size: 16px;">Success: This direct, positive experience establishes strong brand trust and fosters long-term wellness habits among the senior demographic, demonstrating how attitude change through experience creates lasting consumer loyalty.</p>
+      </div>
+     </div>
+
+     <div data-template-id="case-3-card" class="canva-card case-card rounded-xl shadow-sm mb-8 overflow-hidden" style="background: rgb(255, 255, 255);">
+      <button class="case-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+       <h2 data-template-id="case-3-title" class="canva-text heading-font text-xl" style="font-weight: 700; font-style: normal; font-size: 24px;">Case Study 3: My Care Concierge</h2>
+       <i data-lucide="chevron-down" class="chevron-icon w-6 h-6 text-teal-600"></i>
+      </button>
+      <div class="case-content p-6 pt-0 border-t border-gray-100">
+       <p data-template-id="case-3-strategy" class="canva-text text-sm mb-2" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">My Care Concierge is a healthcare service provider based in Malaysia that provides personalized nursing and caregiving services. This includes feeding, bathing, mobility assistance, medication reminder services, and companion care for senior citizens. The service has 3 categories: home care, assisted living, and day care services, employing more than 2,500 professional caregivers.</p>
+       <p data-template-id="case-3-theory" class="canva-text text-sm mb-2" style="color: rgb(13, 148, 136); font-weight: 400; font-style: normal; font-size: 16px;">Theory: Need and Motivation Theory. Need and Motivation theory explains why this company is successful. As older people become dependent in their daily lives and many working children have no time to cater to these routines, My Care Concierge directly steps in to fulfill these essential needs.</p>
+       <p data-template-id="case-3-success" class="canva-text text-sm" style="color: rgb(71, 85, 105); font-weight: 400; font-style: normal; font-size: 16px;">Success: In essence, it is a win-win-win outcome for all. The seniors have their day-to-day dependent needs completely catered to, the children can go about their own busy lives without their daily routines being disrupted by their parents' care requirements, and the company successfully makes a profit by scaling its specialized workforce.</p>
+      </div>
+     </div>
+
+     <div class="mb-6">
+       <h2 data-template-id="cases-table-title" class="canva-text heading-font text-2xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 24px;">Comparative Analysis</h2>
+     </div>
+     <div class="overflow-x-auto mb-8">
+      <table class="w-full text-sm border-collapse">
+       <thead>
+        <tr class="bg-slate-800 text-white">
+         <th data-template-id="table-header-criteria" class="canva-text p-3 text-left" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Criteria</th>
+         <th data-template-id="table-header-aia" class="canva-text p-3 text-left" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">AIA Vitality</th>
+         <th data-template-id="table-header-ss" class="canva-text p-3 text-left" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">SilverSneakers</th>
+         <th data-template-id="table-header-gp" class="canva-text p-3 text-left" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">My Care Concierge</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="border-b">
+         <td data-template-id="table-row-1-label" class="canva-text p-3 font-medium" style="color: rgb(51, 65, 85); font-weight: 600; font-style: normal; font-size: 16px;">Strategy Focus</td>
+         <td data-template-id="table-aia-strategy" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Rewards-based wellness</td>
+         <td data-template-id="table-ss-strategy" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Community fitness programs</td>
+         <td data-template-id="table-gp-strategy" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Personalized nursing &amp; caregiving</td>
+        </tr>
+        <tr class="border-b bg-gray-50">
+         <td data-template-id="table-row-2-label" class="canva-text p-3 font-medium" style="color: rgb(51, 65, 85); font-weight: 600; font-style: normal; font-size: 16px;">Theoretical Foundation</td>
+         <td data-template-id="table-aia-theory" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Expectancy Theory</td>
+         <td data-template-id="table-ss-theory" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Attitude &amp; Experiential Marketing</td>
+         <td data-template-id="table-gp-theory" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Need &amp; Motivation Theory</td>
+        </tr>
+        <tr class="border-b">
+         <td data-template-id="table-row-3-label" class="canva-text p-3 font-medium" style="color: rgb(51, 65, 85); font-weight: 600; font-style: normal; font-size: 16px;">Target Behaviour</td>
+         <td data-template-id="table-aia-behaviour" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Preventive health</td>
+         <td data-template-id="table-ss-behaviour" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Physical activity &amp; social engagement</td>
+         <td data-template-id="table-gp-behaviour" class="canva-text p-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Dependency care &amp; family routine management</td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+
+     <details class="group border border-gray-200 rounded-lg p-4 bg-white shadow-sm mt-8">
+       <summary class="flex justify-between items-center font-bold text-slate-700 cursor-pointer focus:outline-none">
+         <span>References &amp; Citations</span>
+         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 transition-transform group-open:rotate-180"></i>
+       </summary>
+       <div class="mt-4 text-sm text-slate-500 space-y-2 leading-relaxed">
+         <p>AIA Vitality | AIA Malaysia. (n.d.). https://www.aia.com.my/en/aia-vitality/about-aia-vitality.html</p>
+         <p>Care Concierge Malaysia. (2025, June 9). Employee Wellness Programme | Care Concierge. Care Concierge. https://mycareconcierge.com/employee-wellness-programme/</p>
+         <p>Rajpal, A. (2023). Analyzing healthy lifestyle initiatives for seniors: A descriptive study of senior centers in Montgomery County, Ohio (Master's thesis). Wright State University CORE Scholar.</p>
+         <p>Sweeney, M., Barton, W., & Nebeker, C. (2023). Evaluating mobile apps targeting older adults: Descriptive study. JMIR Formative Research, 7, e37329. https://doi.org/10.2196/37329</p>
+       </div>
+     </details>
+    </div>
+   </section>
+
+   <section class="page-section" id="page-recommendations">
+    <div class="max-w-5xl mx-auto px-6 py-12">
+     <div class="mb-8">
+       <h1 data-template-id="rec-title" class="canva-text heading-font text-3xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 32px;">Strategic Marketing Recommendations</h1>
+     </div>
+     <img data-template-id="rec-image" class="canva-image w-full h-48 object-cover rounded-xl shadow mb-10" loading="lazy" src="https://images.pexels.com/photos/6874428/pexels-photo-6874428.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Senior woman smiling while using a digital tablet indoors with natural light">
+     
+     <div class="space-y-6 mb-8">
+      <div data-template-id="rec-1-card" class="canva-card rec-card rounded-xl shadow-sm overflow-hidden border-l-4 border-teal-500" style="background: rgb(255, 255, 255);">
+       <button class="rec-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+        <h3 data-template-id="rec-1-title" class="canva-text font-bold text-lg" style="color: rgb(30, 58, 95); font-weight: 700; font-style: normal; font-size: 19px;">1. Influencer &amp; User-Generated Content</h3>
+        <i data-lucide="chevron-down" class="chevron-icon w-5 h-5 text-teal-600"></i>
+       </button>
+       <div class="rec-content p-6 pt-0 border-t border-gray-50">
+        <p data-template-id="rec-1-text" class="canva-text text-sm mb-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Leveraging a network of credible micro-influencers alongside respected medical professionals can drive user-generated content, ultimately fostering deeper consumer trust in healthcare technology.</p>
+       </div>
+      </div>
+
+      <div data-template-id="rec-2-card" class="canva-card rec-card rounded-xl shadow-sm overflow-hidden border-l-4 border-teal-500" style="background: rgb(255, 255, 255);">
+       <button class="rec-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+        <h3 data-template-id="rec-2-title" class="canva-text font-bold text-lg" style="color: rgb(30, 58, 95); font-weight: 700; font-style: normal; font-size: 19px;">2. Health Mobile Applications</h3>
+        <i data-lucide="chevron-down" class="chevron-icon w-5 h-5 text-teal-600"></i>
+       </button>
+       <div class="rec-content p-6 pt-0 border-t border-gray-50">
+        <p data-template-id="rec-2-text" class="canva-text text-sm mb-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">A mobile healthcare application should be developed to facilitate easier scheduling of appointments, delivery of prescription reminders, access to health-related news, and education about medical devices such as pulse oximeters and blood pressure monitors. It should be compatible with all types of phones.</p>
+       </div>
+      </div>
+
+      <div data-template-id="rec-3-card" class="canva-card rec-card rounded-xl shadow-sm overflow-hidden border-l-4 border-teal-500" style="background: rgb(255, 255, 255);">
+       <button class="rec-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+        <h3 data-template-id="rec-3-title" class="canva-text font-bold text-lg" style="color: rgb(30, 58, 95); font-weight: 700; font-style: normal; font-size: 19px;">3. Word-of-Mouth &amp; Community Trust Marketing</h3>
+        <i data-lucide="chevron-down" class="chevron-icon w-5 h-5 text-teal-600"></i>
+       </button>
+       <div class="rec-content p-6 pt-0 border-t border-gray-50">
+        <p data-template-id="rec-3-text" class="canva-text text-sm mb-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">The third marketing strategy would use Word-of-Mouth Marketing. Elderly consumers are more likely to trust recommendations from people they know or familiar figures. By inviting well-known doctors, traditional celebrities, or public figures to conduct community health talks and product promotions can help build confidence among elderly consumers.</p>
+       </div>
+      </div>
+
+      <div data-template-id="rec-4-card" class="canva-card rec-card rounded-xl shadow-sm overflow-hidden border-l-4 border-teal-500" style="background: rgb(255, 255, 255);">
+       <button class="rec-header w-full flex items-center justify-between p-6 focus:outline-none text-left">
+        <h3 data-template-id="rec-4-title" class="canva-text font-bold text-lg" style="color: rgb(30, 58, 95); font-weight: 700; font-style: normal; font-size: 19px;">4. Integrated Healthcare Ecosystems</h3>
+        <i data-lucide="chevron-down" class="chevron-icon w-5 h-5 text-teal-600"></i>
+       </button>
+       <div class="rec-content p-6 pt-0 border-t border-gray-50">
+        <p data-template-id="rec-4-text" class="canva-text text-sm mb-3" style="color: rgb(51, 65, 85); font-weight: 400; font-style: normal; font-size: 16px;">Deploying implantable microchips linked to smartphones and hospital networks to provide real-time vital tracking, medication safety, and family alert ecosystems that senior segments prefer due to user-friendly interfaces.</p>
+       </div>
+      </div>
+     </div>
+     
+     <div data-template-id="conclusion-section" class="canva-section p-8 rounded-xl mb-8" style="background: linear-gradient(135deg, rgb(30, 58, 95), rgb(15, 118, 110));">
+      <h2 data-template-id="conclusion-title" class="canva-text heading-font text-2xl mb-4" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Conclusion</h2>
+      <p data-template-id="conclusion-text" class="canva-text leading-relaxed" style="color: rgb(226, 232, 240); font-weight: 400; font-style: normal; font-size: 16px;">Effective marketing to senior healthcare consumers in Malaysia requires a holistic approach grounded in consumer behaviour theories and cultural sensitivity. By understanding the unique demographic, psychographic, and geographic characteristics of senior citizens, marketers can create inclusive, accessible, and truly effective healthcare strategies.</p>
+     </div>
+
+     <details class="group border border-gray-200 rounded-lg p-4 bg-white shadow-sm mt-8">
+       <summary class="flex justify-between items-center font-bold text-slate-700 cursor-pointer focus:outline-none">
+         <span>References &amp; Citations</span>
+         <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 transition-transform group-open:rotate-180"></i>
+       </summary>
+       <div class="mt-4 text-sm text-slate-500 space-y-2 leading-relaxed">
+         <p>Anil1, M. (1999, January 1). ADOPTION OF TECHNOLOGICAL INNOVATIONS BY THE ELDERLY: A CONSUMER SOCIALIZATION PERSPECTIVE. EBSCO; Journal of Marketing Management (10711988).</p>
+         <p>Checking your browser - reCAPTCHA. (n.d.-b). https://pubmed.ncbi.nlm.nih.gov/34825609/ </p>
+         <p>De Veirman, M., Cauberghe, V., & Hudders, L. (2017). Marketing through Instagram influencers: The impact of number of followers and product divergence on brand attitude. International Journal of Advertising, 36(5), 798–828. https://doi.org/10.1080/02650487.2017.1348035</p>
+         <p>Djafarova, E., &amp; Rushworth, C. (2017). Exploring the credibility of online celebrities’ Instagram profiles in influencing the purchase decisions of young female users. Computers in Human Behavior, 68, 1–7. https://doi.org/10.1016/j.chb.2016.11.009</p>
+         <p>Yang, L., Xie, R. X., Xuyun , Z., Guanhui, Z., &amp; Shengxiang, S. (2025, January 1). Exploring the determinants of online purchase intention for aging-friendly products: evidence from senior consumers in urban Chinese context. EBSCO; Frontiers Media S.A., 2025.</p>
+       </div>
+     </details>
+    </div>
+   </section>
+
+   <section class="page-section" id="page-references">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <div class="mb-8">
+      <h1 data-template-id="ref-title" class="canva-text heading-font text-3xl section-header-highlight" style="font-weight: 700; font-style: normal; font-size: 32px;">Full Bibliography Archive</h1>
+    </div>
+    <div class="space-y-6 mb-8 text-sm leading-relaxed text-slate-700 pl-8 -indent-8">
+      <p data-template-id="ref-1">Abdullah, J. M., Ismail, A., &amp; Yusoff, M. S. B. (2024). Healthy ageing in Malaysia by 2030: Needs, challenges and future directions. <i>The Malaysian Journal of Medical Sciences</i>, 31(4), 1–13. <a href="https://doi.org/10.21315/mjms2024.31.4.1" target="_blank" class="text-teal-600 hover:underline break-all">https://doi.org/10.21315/mjms2024.31.4.1</a></p>
+      <p data-template-id="ref-2">AIA Vitality | AIA Malaysia. (n.d.). <a href="https://www.aia.com.my/en/aia-vitality/about-aia-vitality.html" target="_blank" class="text-teal-600 hover:underline break-all">https://www.aia.com.my/en/aia-vitality/about-aia-vitality.html</a></p>
+      <p data-template-id="ref-3">Anil1, M. (1999, January 1). ADOPTION OF TECHNOLOGICAL INNOVATIONS BY THE ELDERLY: A CONSUMER SOCIALIZATION PERSPECTIVE. EBSCO; <i>Journal of Marketing Management</i> (10711988). <a href="https://research.ebsco.com/c/lzo7om/search/details/tthpe5jiij?limiters=FT1%3AY&amp;q=Adoption%20of%20Technological%20Innovations%20by%20the%20Elderly%3A%20A%2" target="_blank" class="text-teal-600 hover:underline break-all">https://research.ebsco.com/c/lzo7om/search/details/tthpe5jiij?limiters=FT1%3AY&amp;q=Adoption%20of%20Technological%20Innovations%20by%20the%20Elderly%3A%20A%2</a></p>
+      <p data-template-id="ref-4">Article - JHPOR. (n.d.). <a href="https://www.jhpor.com/home/Article/2356" target="_blank" class="text-teal-600 hover:underline break-all">https://www.jhpor.com/home/Article/2356</a></p>
+      <p data-template-id="ref-5">Care Concierge Malaysia. (2025, June 9). Employee Wellness Programme | Care Concierge. Care Concierge. <a href="https://mycareconcierge.com/employee-wellness-programme/" target="_blank" class="text-teal-600 hover:underline break-all">https://mycareconcierge.com/employee-wellness-programme/</a></p>
+      <p data-template-id="ref-6">Checking your browser - reCAPTCHA. (n.d.-b). <a href="https://pubmed.ncbi.nlm.nih.gov/34825609/" target="_blank" class="text-teal-600 hover:underline break-all">https://pubmed.ncbi.nlm.nih.gov/34825609/</a></p>
+      <p data-template-id="ref-7">Department of Statistics Malaysia. (2024). Current population estimates, Malaysia.</p>
+      <p data-template-id="ref-8">Department of Statistics Malaysia. (2026, May 14). Demographic statistics Malaysia, first quarter 2026. <a href="https://www.dosm.gov.my/portal-main/release-content/demographic-statistic-malaysia-q12026" target="_blank" class="text-teal-600 hover:underline break-all">https://www.dosm.gov.my/portal-main/release-content/demographic-statistic-malaysia-q12026</a></p>
+      <p data-template-id="ref-9">De Veirman, M., Cauberghe, V., &amp; Hudders, L. (2017). Marketing through Instagram influencers: The impact of number of followers and product divergence on brand attitude. <i>International Journal of Advertising</i>, 36(5), 798–828. <a href="https://doi.org/10.1080/02650487.2017.1348035" target="_blank" class="text-teal-600 hover:underline break-all">https://doi.org/10.1080/02650487.2017.1348035</a></p>
+      <p data-template-id="ref-10">Djafarova, E., &amp; Rushworth, C. (2017). Exploring the credibility of online celebrities’ Instagram profiles in influencing the purchase decisions of young female users. <i>Computers in Human Behavior</i>, 68, 1–7. <a href="https://doi.org/10.1016/j.chb.2016.11.009" target="_blank" class="text-teal-600 hover:underline break-all">https://doi.org/10.1016/j.chb.2016.11.009</a></p>
+      <p data-template-id="ref-11">Institute for Public Health, National Institutes of Health, Ministry of Health Malaysia, Mohd Noh, S. N., Ab Rahim, I., Jawahir, S., Manual, A., Nordin, A. A., Hamid, J. A., Rifin, H. M., Yusoff, M. F. M., &amp; Razali, N. (2024). National Health and Morbidity Survey (NHMS) 2023: Non-communicable Diseases and Healthcare Demand - Key findings. <a href="https://iku.nih.gov.my/images/nhms2023/key-findings-nhms-2023.pdf" target="_blank" class="text-teal-600 hover:underline break-all">https://iku.nih.gov.my/images/nhms2023/key-findings-nhms-2023.pdf</a></p>
+      <p data-template-id="ref-12">Ministry of Health Malaysia. (2023). Health facts 2023. Ministry of Health Malaysia.</p>
+      <p data-template-id="ref-13">Rajpal, A. (2023). Analyzing healthy lifestyle initiatives for seniors: A descriptive study of senior centers in Montgomery County, Ohio (Master's thesis). Wright State University CORE Scholar. CORE Scholar.</p>
+      <p data-template-id="ref-14">Solomon, M. R. (2023). Consumer Behavior: Buying, Having and Being 14th ed. New Jersey: Pearson-Prentice Hall.</p>
+      <p data-template-id="ref-15">Sweeney, M., Barton, W., &amp; Nebeker, C. (2023). Evaluating mobile apps targeting older adults: Descriptive study. <i>JMIR Formative Research</i>, 7, e37329. <a href="https://doi.org/10.2196/37329" target="_blank" class="text-teal-600 hover:underline break-all">https://doi.org/10.2196/37329</a></p>
+      <p data-template-id="ref-16">United Nations Economic and Social Commission for Asia and the Pacific. (n.d.). SDD ageing fact sheet overview. <a href="https://www.unescap.org/sites/default/files/SDD%20Ageing%20Fact%20Sheet%20Overview.pdf" target="_blank" class="text-teal-600 hover:underline break-all">https://www.unescap.org/sites/default/files/SDD%20Ageing%20Fact%20Sheet%20Overview.pdf</a></p>
+      <p data-template-id="ref-17">United Nations Population Fund. (2023). Ageing and older persons in Asia and the Pacific.</p>
+      <p data-template-id="ref-18">World Bank. (2024). Malaysia economic monitor: Ageing and healthcare accessibility.</p>
+      <p data-template-id="ref-19">World Health Organization. (2024). Ageing and health. <a href="https://www.who.int/news-room/fact-sheets/detail/ageing-and-health" target="_blank" class="text-teal-600 hover:underline break-all">https://www.who.int/news-room/fact-sheets/detail/ageing-and-health</a></p>
+      <p data-template-id="ref-20">World Health Organization: WHO. (2024, December 16). Transforming Health: Malaysia’s RM 30 billion NCD strategy. <a href="https://www.who.int/westernpacific/newsroom/feature-stories/item/transforming-health--malaysia-s-rm-30-billion-ncd-strategy" target="_blank" class="text-teal-600 hover:underline break-all">https://www.who.int/westernpacific/newsroom/feature-stories/item/transforming-health--malaysia-s-rm-30-billion-ncd-strategy</a></p>
+      <p data-template-id="ref-21">Yang, L., Xie, R. X., Xuyun , Z., Guanhui, Z., &amp; Shengxiang, S. (2025, January 1). Exploring the determinants of online purchase intention for aging-friendly products: evidence from senior consumers in urban Chinese context. EBSCO; Frontiers Media S.A., 2025. <a href="https://research.ebsco.com/c/lzo7om/search/details/ckuoes3vbj?limiters=FT1%3AY&amp;q=Exploring%20the%20determinants%20of%20online%20purchase%20intention%20for%20aging-friendly%20products%3A%20evidence%20from%20senior%20consumers%20in%20urban%20Chinese%20context&amp;searchMode=all" target="_blank" class="text-teal-600 hover:underline break-all">https://research.ebsco.com/c/lzo7om/search/details/ckuoes3vbj?limiters=FT1%3AY&amp;q=Exploring%20the%20determinants%20of%20online%20purchase%20intention%20for%20aging-friendly%20products%3A%20evidence%20from%20senior%20consumers%20in%20urban%20Chinese%20context&amp;searchMode=all</a></p>
+    </div>
+  </div>
+</section>
+  </main>
+
+  <footer data-template-id="footer-section" class="canva-footer py-8 bg-slate-900 border-t border-slate-800">
+   <div class="max-w-5xl mx-auto px-6 flex flex-col items-center gap-4 text-center">
+     <div>
+       <p class="text-xs uppercase tracking-widest text-teal-400 font-bold mb-1">MKT2054 Consumer Behaviour</p>
+       <p data-template-id="footer-text" class="canva-text text-sm text-slate-400">Senior Healthcare Consumer Behaviour Portfolio &copy; 2026</p>
+     </div>
+   </div>
+  </footer>
+
+  <script src="/_sdk/editing_sdk.js"></script>
+  
+  <script>
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page-section');
+        const navTitle = document.querySelector('[data-template-id="nav-title"]');
+        const toolbarToggle = document.getElementById('toolbar-toggle');
+        const toolbarMenu = document.getElementById('toolbar-menu');
+
+        function switchPage(target) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-link[data-page="${target}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + target).classList.add('active');
+            
+            if (!toolbarMenu.classList.contains('hidden') && window.innerWidth < 768) {
+                toolbarMenu.classList.add('hidden');
+            }
+            window.scrollTo(0, 0);
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                switchPage(link.dataset.page);
+            });
+        });
+
+        if (navTitle) {
+            navTitle.addEventListener('click', () => {
+                switchPage(navTitle.dataset.page);
+            });
+        }
+
+        toolbarToggle.addEventListener('click', () => {
+            toolbarMenu.classList.toggle('hidden');
+        });
+
+        const caseHeaders = document.querySelectorAll('.case-header');
+        caseHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const chevron = header.querySelector('.chevron-icon');
+                content.classList.toggle('collapsed');
+                chevron.classList.toggle('rotated');
+            });
+        });
+
+        const recHeaders = document.querySelectorAll('.rec-header');
+        recHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const chevron = header.querySelector('.chevron-icon');
+                content.classList.toggle('collapsed');
+                chevron.classList.toggle('rotated');
+            });
+        });
+
+        lucide.createIcons();
+        switchPage("overview");
+
+const timelineData = {
+    "1970": { working: 50.0, children: 44.5, seniors: 5.4 },
+    "1980": { working: 54.6, children: 39.7, seniors: 5.5 },
+    "1990": { working: 57.0, children: 37.4, seniors: 5.6 },
+    "2000": { working: 59.8, children: 34.1, seniors: 6.2 },
+    "2010": { working: 64.8, children: 27.4, seniors: 7.9 },
+    "2020": { working: 65.5, children: 23.4, seniors: 11.1 },
+    "2030": { working: 63.5, children: 21.2, seniors: 15.3 },
+    "2035": { working: 62.7, children: 19.9, seniors: 17.4 },
+    "2040": { working: 61.6, children: 18.6, seniors: 19.8 }
+};
+
+function updateAgeStructure(year) {
+    const data = timelineData[year];
+    if (!data) return;
+
+    document.getElementById('label-working').innerText = data.working.toFixed(1) + '%';
+    document.getElementById('label-children').innerText = data.children.toFixed(1) + '%';
+    document.getElementById('label-seniors').innerText = data.seniors.toFixed(1) + '%';
+
+    document.getElementById('bar-working').style.width = data.working + '%';
+    document.getElementById('bar-children').style.width = data.children + '%';
+    document.getElementById('bar-seniors').style.width = data.seniors + '%';
+}
+
+    document.addEventListener("DOMContentLoaded", function() {
+    updateAgeStructure("2020");
+});
+
+    </script>
+</body>
+</html>
